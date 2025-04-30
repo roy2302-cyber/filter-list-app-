@@ -1,9 +1,22 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
-export function Filter({ filterText, setFilterText, filteredCount }) {
+export function Filter({
+  robotsList,
+  setFilteredRobots,
+  filterText,
+  setFilterText
+}) {
+  useEffect(() => {
+    const filtered = robotsList.filter((robot) =>
+      robot.first_name.toLowerCase().includes(filterText.toLowerCase())
+    );
+    setFilteredRobots(filtered);
+  }, [filterText, robotsList, setFilteredRobots]);
+
   return (
     <div className="header">
-      <h4 className="filter_title">{filteredCount} items filtered</h4>
+      <h4 className="filter_title">{filterText ? `${filterText}` : 'All'} items filtered</h4>
       <input
         className="filter"
         value={filterText}
@@ -14,6 +27,8 @@ export function Filter({ filterText, setFilterText, filteredCount }) {
 }
 
 Filter.propTypes = {
+  robotsList: PropTypes.array.isRequired,
+  setFilteredRobots: PropTypes.func.isRequired,
   filterText: PropTypes.string.isRequired,
   setFilterText: PropTypes.func.isRequired,
   filteredCount: PropTypes.number.isRequired,

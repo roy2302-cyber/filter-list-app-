@@ -4,9 +4,10 @@ import { Filter } from "./filter";
 
 export function App() {
   const [robotsList, setRobotsList] = useState([]);
+  const [filteredRobots, setFilteredRobots] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState(""); 
 
   useEffect(() => {
     async function getData() {
@@ -15,6 +16,7 @@ export function App() {
         const response = await fetch(data_url);
         const data = await response.json();
         setRobotsList(data);
+        setFilteredRobots(data); 
       } catch (error) {
         setErrorMsg(`fetch operation failed: ${error.message}`);
       } finally {
@@ -23,10 +25,6 @@ export function App() {
     }
     getData().catch(console.log);
   }, []);
-
-  const filteredRobots = robotsList.filter((robot) =>
-    robot.first_name.toLowerCase().includes(filterText.toLowerCase())
-  );
 
   return (
     <div className="app">
@@ -41,6 +39,8 @@ export function App() {
       ) : (
         <>
           <Filter
+            robotsList={robotsList}
+            setFilteredRobots={setFilteredRobots}
             filterText={filterText}
             setFilterText={setFilterText}
             filteredCount={filteredRobots.length}
