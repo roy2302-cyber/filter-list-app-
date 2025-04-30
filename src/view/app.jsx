@@ -38,12 +38,11 @@ export function App() {
         <h1 className="load-label">Loading...</h1>
       ) : (
         <>
-          <Filter
-            robotsList={robotsList}
-            setFilteredRobots={setFilteredRobots}
-            filterText={filterText}
-            setFilterText={setFilterText}
-            filteredCount={filteredRobots.length}
+         <Filter
+         robotsList={robotsList}
+          setFilteredRobots={setFilteredRobots}
+          filterText={filterText}
+          setFilterText={setFilterText}
           />
           <List listData={filteredRobots} />
         </>
