@@ -7,7 +7,6 @@ export function App() {
   const [filteredRobots, setFilteredRobots] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const [filterText, setFilterText] = useState(""); 
 
   useEffect(() => {
     async function getData() {
@@ -38,12 +37,11 @@ export function App() {
         <h1 className="load-label">Loading...</h1>
       ) : (
         <>
-        <Filter
+       <Filter
         robotsList={robotsList}
-        filterText={filterText}
-        setFilterText={setFilterText}
         setFilteredRobots={setFilteredRobots}
-        />
+        filteredRobots={filteredRobots}
+          />
           <List listData={filteredRobots} />
         </>
       )}
